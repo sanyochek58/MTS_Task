@@ -1,3 +1,17 @@
 spring:
   application:
     name: demo
+  autoconfigure:
+    exclude: org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+
+db:
+  datasources:
+    - url: ${DB1_URL}
+      username: ${DB1_USERNAME}
+      password: ${DB1_PASSWORD}
+    - url: ${DB2_URL}
+      username: ${DB2_USERNAME}
+      password: ${DB2_PASSWORD}
+    - url: ${DB3_URL}
+      username: ${DB3_USERNAME}
+      password: ${DB3_PASSWORD}
