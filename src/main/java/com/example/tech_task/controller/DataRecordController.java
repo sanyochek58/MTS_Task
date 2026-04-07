@@ -1,8 +1,11 @@
 package com.example.tech_task.controller;
 
 import com.example.tech_task.dto.request.DataRecordRequest;
-import com.example.tech_task.model.DataRecord;
 import com.example.tech_task.service.DataService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,10 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Tag(name = "Data API", description = "Маршрутизация данных между БД")
 public class DataRecordController {
 
     private final DataService dataService;
 
+    @Operation(summary = "Сохранить запись", description = "Распределяет данные между БД по алгоритму type % N")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Успешно сохранено"),
+            @ApiResponse(responseCode = "400", description = "Невалидные данные")
+    })
     @PostMapping("/data")
     public ResponseEntity<?> createDataRecord(@Valid @RequestBody DataRecordRequest request){
         dataService.save(request);
